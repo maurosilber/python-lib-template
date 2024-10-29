@@ -1,0 +1,71 @@
+_subdirectory: template
+
+# questions
+project_name:
+    type: str
+    help: What is your project name?
+    validator: >-
+        {% if not (project_name | regex_search('^[a-z][a-z0-9\-_]+$')) %}
+        project_name must start with a letter, followed one or more letters, digits, dashes or underscores, all lowercase.
+        {% endif %}
+
+project_slug:
+    type: str
+    help: What is the Python import name?
+    default: "{{ project_name|replace('-', '_') }}"
+
+project_description:
+    type: str
+    help: What is your project description?
+
+license:
+    type: str
+    choices:
+        - MIT
+        - BSD
+    default: MIT
+
+platforms:
+    type: str
+    help: What are the target platforms? ('linux-64' is used in CI for GitHub Actions)
+    multiselect: true
+    choices:
+        - "osx-arm64"
+        - "linux-64"
+        - "win-64"
+    default:
+        - "linux-64"
+
+max_python_version_minor:
+    type: int
+    default: 13
+    when: false
+
+min_python_version:
+    type: str
+    help: What is the minimum supported Python version?
+    choices: ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
+
+min_python_version_minor:
+    type: int
+    default: "{{ min_python_version | replace('3.', '') | int }}"
+    when: false
+
+your_name:
+    type: str
+    help: What is your full name?
+
+your_email:
+    type: str
+    help: What is your email address?
+
+github_username:
+    type: str
+    help: What is your GitHub username?
+
+_tasks:
+    # Strings get executed under system's default shell
+    - "git init"
+    - "pixi run pre-commit-install"
+    - "git add ."
+    - "git commit -m 'Start project with copier'"

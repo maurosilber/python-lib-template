@@ -1,0 +1,54 @@
+[project]
+name = "{{ project_name }}"
+description = "{{ project_description }}"
+authors = ["{{ your_name }} <{{ your_email }}>"]
+channels = ["https://fast.prefix.dev/conda-forge"]
+platforms = {{ platforms }}
+
+[tasks]
+
+[dependencies]
+python = ">={{ min_python_version }}"
+
+[pypi-dependencies]
+{{ project_name }} = { path = ".", editable = false }
+
+[environments]
+lint = { features = ["lint"], no-default-feature = true }
+build = { features = ["build"], no-default-feature = true }
+test = { features = ["test"], solve-group = "default" }
+{%- for minor in range(min_python_version_minor, max_python_version_minor + 1) %}
+test-py3{{ minor }} = ["test", "py3{{ minor }}"]
+{%- endfor %}
+
+[feature.lint.dependencies]
+pre-commit = "*"
+pre-commit-hooks = "*"
+taplo = "*"
+ruff = "*"
+mdformat = "*"
+mdformat-ruff = "*"
+
+[feature.lint.tasks]
+pre-commit-install = "pre-commit install"
+lint = "pre-commit run"
+
+[feature.build.dependencies]
+uv = "*"
+
+[feature.build.tasks]
+build = "uv build"
+publish = "uv publish"
+
+[feature.test.dependencies]
+pytest = "*"
+
+[feature.test.tasks]
+test = "pytest --doctest-modules"
+
+{%- for minor in range(min_python_version_minor, max_python_version_minor + 1) %}
+
+[feature.py3{{ minor }}.dependencies]
+python = "3.{{ minor }}.*"
+
+{%- endfor %}

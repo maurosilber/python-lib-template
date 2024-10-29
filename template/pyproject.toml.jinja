@@ -1,0 +1,36 @@
+[project]
+name = "{{ project_name }}"
+description = "{{ project_description }}"
+dynamic = ["version"]
+authors = [{ name = "{{ your_name }}", email = "{{ your_email }}" }]
+readme = { file = "README.md", content-type = "text/markdown" }
+license = { text = "{{ license }}" }
+classifiers = [
+  "License :: OSI Approved :: {{ license }} License",
+  "Programming Language :: Python :: 3",
+  {%- for minor in range(min_python_version_minor, max_python_version_minor + 1) %}
+  "Programming Language :: Python :: 3.{{ minor }}",
+  {%- endfor %}
+]
+requires-python = ">={{ min_python_version }}"
+
+[project.urls]
+Homepage = "https://github.com/{{ github_username }}/{{ project_name }}"
+Issues = "https://github.com/{{ github_username }}/{{ project_name }}/issues"
+Documentation = "https://{{ github_username }}.github.io/{{ project_name }}"
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.uv]
+cache-keys = [{ file = "pyproject.toml" }, { git = true }]
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+pythonpath = "."
+
+[tool.ruff.lint]
