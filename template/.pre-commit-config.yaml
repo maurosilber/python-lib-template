@@ -29,14 +29,14 @@ repos:
     name: Format with ruff
     entry: pixi run -e lint ruff format --force-exclude
     language: system
-    types: [python, pyi, jupyter]
+    types_or: [python, pyi, jupyter]
     require_serial: true
 
   - id: ruff check
     name: Lint with ruff
     entry: pixi run -e lint ruff check --force-exclude --fix
     language: system
-    types: [python, pyi, jupyter]
+    types_or: [python, pyi, jupyter]
     require_serial: true
 
   - id: mdformat
