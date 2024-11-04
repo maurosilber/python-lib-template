@@ -31,7 +31,7 @@ repos:
     language: system
     types_or: [python, pyi, jupyter]
     require_serial: true
- 
+
   - id: ruff format
     name: Format with ruff
     entry: pixi run -e lint ruff format --force-exclude
