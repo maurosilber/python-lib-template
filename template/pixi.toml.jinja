@@ -11,7 +11,7 @@ platforms = {{ platforms }}
 python = ">={{ min_python_version }}"
 
 [pypi-dependencies]
-{{ project_name }} = { path = ".", editable = false }
+{{ project_name }} = { path = ".", editable = true }
 
 [environments]
 lint = { features = ["lint"], no-default-feature = true }
