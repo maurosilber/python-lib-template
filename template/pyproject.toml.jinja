@@ -13,6 +13,7 @@ classifiers = [
   {%- endfor %}
 ]
 requires-python = ">={{ min_python_version }}"
+dependencies = []
 
 [project.urls]
 Homepage = "https://github.com/{{ github_username }}/{{ project_name }}"
@@ -38,3 +39,55 @@ docstring-code-format = true
 
 [tool.ruff.lint]
 extend-select = ["I"]
+
+[tool.pixi.project]
+channels = ["https://fast.prefix.dev/conda-forge"]
+platforms = {{ platforms }}
+
+[tool.pixi.tasks]
+
+[tool.pixi.dependencies]
+python = ">={{ min_python_version }}"
+
+[tool.pixi.pypi-dependencies]
+{{ project_name }} = { path = ".", editable = true }
+
+[tool.pixi.environments]
+lint = { features = ["lint"], no-default-feature = true }
+build = { features = ["build"], no-default-feature = true }
+test = { features = ["test"], solve-group = "default" }
+{%- for minor in range(min_python_version_minor, max_python_version_minor + 1) %}
+test-py3{{ minor }} = ["test", "py3{{ minor }}"]
+{%- endfor %}
+
+[tool.pixi.feature.lint.dependencies]
+pre-commit = "*"
+pre-commit-hooks = "*"
+taplo = "*"
+ruff = "*"
+mdformat = "*"
+mdformat-ruff = "*"
+
+[tool.pixi.feature.lint.tasks]
+pre-commit-install = "pre-commit install"
+lint = "pre-commit run"
+
+[tool.pixi.feature.build.dependencies]
+uv = "*"
+
+[tool.pixi.feature.build.tasks]
+build = "uv build"
+publish = "uv publish"
+
+[tool.pixi.feature.test.dependencies]
+pytest = "*"
+
+[tool.pixi.feature.test.tasks]
+test = "pytest --doctest-modules"
+
+{%- for minor in range(min_python_version_minor, max_python_version_minor + 1) %}
+
+[tool.pixi.feature.py3{{ minor }}.dependencies]
+python = "3.{{ minor }}.*"
+
+{%- endfor %}
