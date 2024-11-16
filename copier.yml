@@ -24,9 +24,7 @@ project_description:
 
 license:
     type: str
-    choices:
-        - MIT
-        - BSD
+    help: A SPDX license identifier (https://spdx.org/licenses/)
     default: MIT
 
 platforms:
