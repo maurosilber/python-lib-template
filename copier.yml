@@ -13,6 +13,10 @@ project_slug:
     type: str
     help: What is the Python import name?
     default: "{{ project_name|replace('-', '_') }}"
+    validator: >-
+        {% if not (project_slug | regex_search('^[a-z][a-z0-9\_]+$')) %}
+        project_slug must start with a letter, followed one or more letters, digits, underscores, all lowercase.
+        {% endif %}
 
 project_description:
     type: str
