@@ -38,9 +38,14 @@ platforms:
     default:
         - "linux-64"
 
+max_python_version:
+    type: str
+    help: What is the maximum supported Python version?
+    choices: ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
+
 max_python_version_minor:
     type: int
-    default: 13
+    default: "{{ max_python_version | replace('3.', '') | int }}"
     when: false
 
 min_python_version:
