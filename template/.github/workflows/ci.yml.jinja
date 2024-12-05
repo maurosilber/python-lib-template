@@ -29,8 +29,7 @@ jobs:
       - run: pixi run --environment ${{ matrix.environment }} test
 {%- endraw %}
 
-  publish:
-    if: github.ref_type == 'tag'
+  build:
     needs: [test, lint]
 
     runs-on: ubuntu-latest
@@ -49,3 +48,4 @@ jobs:
         run: pixi run --environment build build
       - name: Publish to PyPI
         run: pixi run --environment build publish
+        if: github.ref_type == 'tag'
