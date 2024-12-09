@@ -1,7 +1,7 @@
 [project]
 name = "{{ project_name }}"
 description = "{{ project_description }}"
-dynamic = ["version"]
+version = ["0.1.0"]
 authors = [{ name = "{{ your_name }}", email = "{{ your_email }}" }]
 readme = { file = "README.md", content-type = "text/markdown" }
 license = "{{ license }}"
@@ -16,14 +16,8 @@ changelog = "https://github.com/{{ github_username }}/{{ project_name }}/blob/ma
 documentation = "https://{{ github_username }}.github.io/{{ project_name }}"
 
 [build-system]
-requires = ["hatchling", "hatch-vcs"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-[tool.hatch.version]
-source = "vcs"
-
-[tool.uv]
-cache-keys = [{ file = "pyproject.toml" }, { git = true }]
 
 [tool.pytest.ini_options]
 addopts = "--import-mode=importlib"
@@ -45,6 +39,7 @@ channels = ["https://fast.prefix.dev/conda-forge"]
 platforms = {{ platforms }}
 
 [tool.pixi.tasks]
+release = "git tag $(pixi project version get) && git push --follow-tags || echo 'Run: pixi project version <major|minor|update>'"
 
 [tool.pixi.dependencies]
 python = ">={{ min_python_version }}"
