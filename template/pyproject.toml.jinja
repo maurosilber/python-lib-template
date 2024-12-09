@@ -71,9 +71,23 @@ lint = "pre-commit run"
 [tool.pixi.feature.build.dependencies]
 uv = "*"
 
+[tool.pixi.feature.build.pypi-dependencies]
+mdremotifier = "*"
+
 [tool.pixi.feature.build.tasks]
-build = "uv build"
+build = { cmd = "uv build", depends-on = ["remotify"] }
 publish = "uv publish"
+remotify = { cmd = [
+  "mdremotifier",
+  "-i",
+  "README.md",
+  "-o",
+  "README.md",
+  "--url-prefix",
+  "https://github.com/{{ github_username }}/{{ project_name }}/blob/main",
+  "--img-url-prefix",
+  "https://raw.githubusercontent.com/{{ github_username }}/{{ project_name }}/refs/heads/main/",
+] }
 
 [tool.pixi.feature.test.dependencies]
 pytest = "*"
