@@ -92,6 +92,9 @@ remotify = { cmd = [
 [tool.pixi.feature.test.dependencies]
 pytest = "*"
 
+[tool.pixi.feature.test.pypi-dependencies]
+pytest-readme = "*"
+
 [tool.pixi.feature.test.tasks]
 test = "pytest --doctest-modules"
 
