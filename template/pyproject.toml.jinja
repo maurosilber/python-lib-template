@@ -31,7 +31,7 @@ extend-select = ["I"]
 
 [tool.pyright]
 typeCheckingMode = "standard"
-venv = "test"
+venv = "default"
 venvPath = ".pixi/envs/"
 
 [tool.pixi.project]
@@ -42,9 +42,9 @@ platforms = {{ platforms }}
 python = ">={{ min_python_version }}"
 
 [tool.pixi.environments]
+default = { features = ["test"] }
 lint = { features = ["lint"], no-default-feature = true }
 build = { features = ["build"], no-default-feature = true }
-test = { features = ["test"], solve-group = "default" }
 {%- for minor in range(min_python_version_minor, max_python_version_minor + 1) %}
 test-py3{{ minor }} = ["test", "py3{{ minor }}"]
 {%- endfor %}
