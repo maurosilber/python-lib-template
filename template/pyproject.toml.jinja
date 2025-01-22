@@ -38,9 +38,6 @@ venvPath = ".pixi/envs/"
 channels = ["https://fast.prefix.dev/conda-forge"]
 platforms = {{ platforms }}
 
-[tool.pixi.tasks]
-release = "git tag $(pixi project version get) && git push && git push --tags || echo 'Run: pixi project version <major|minor|update>'"
-
 [tool.pixi.dependencies]
 python = ">={{ min_python_version }}"
 
