@@ -41,9 +41,6 @@ platforms = {{ platforms }}
 [tool.pixi.dependencies]
 python = ">={{ min_python_version }}"
 
-[tool.pixi.pypi-dependencies]
-{{ project_name }} = { path = ".", editable = true }
-
 [tool.pixi.environments]
 lint = { features = ["lint"], no-default-feature = true }
 build = { features = ["build"], no-default-feature = true }
