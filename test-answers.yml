@@ -1,0 +1,11 @@
+github_username: testbot
+license: MIT
+max_python_version: '3.13'
+min_python_version: '3.13'
+platforms:
+- linux-64
+project_description: A test project.
+project_name: test
+project_slug: test
+your_email: testbot@example.com
+your_name: Testbot

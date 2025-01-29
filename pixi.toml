@@ -1,0 +1,12 @@
+[project]
+name = "python-lib-template"
+version = "0.1.0"
+authors = ["Mauro Silberberg <maurosilber@gmail.com>"]
+channels = ["https://repo.prefix.dev/conda-forge"]
+platforms = ["osx-arm64", "linux-64"]
+
+[dependencies]
+copier = "*"
+
+[tasks]
+test = "copier copy . test --trust --data-file test-answers.yml"
