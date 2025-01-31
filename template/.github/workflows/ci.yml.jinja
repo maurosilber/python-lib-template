@@ -12,7 +12,7 @@ jobs:
           environments: lint
       - run: pixi run --environment lint lint
 
-{%- if min_python_version_minor < max_python_version_minor %}
+{% if min_python_version_minor < max_python_version_minor -%}
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -29,7 +29,7 @@ jobs:
           environments: ${{ matrix.environment }}
       - run: pixi run --environment ${{ matrix.environment }} test
 {%- endraw %}
-{%- else %}
+{% else -%}
   test:
     runs-on: ubuntu-latest
     steps:
