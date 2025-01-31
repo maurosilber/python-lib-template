@@ -37,11 +37,13 @@ venvPath = ".pixi/envs/"
 channels = ["https://repo.prefix.dev/conda-forge"]
 platforms = {{ platforms }}
 
+{% if min_python_version_minor == max_python_version_minor -%}
 [tool.pixi.dependencies]
-python = "=={{ min_python_version }}"
+python = "{{ min_python_version }}.*"
+{%- endif %}
 
 [tool.pixi.environments]
-default = { features = ["test"] }
+default = { features = ["test"{% if min_python_version_minor < max_python_version_minor %}, "py3{{min_python_version_minor}}"{% endif %}] }
 lint = { features = ["lint"], no-default-feature = true }
 build = { features = ["build"], no-default-feature = true }
 {%- if min_python_version_minor < max_python_version_minor %}
