@@ -63,7 +63,8 @@ pyright = "*"
 
 [tool.pixi.feature.lint.tasks]
 pre-commit-install = "pre-commit install"
-lint = "pre-commit run"
+lint-staged = "pre-commit run"
+lint-all = "pre-commit run --all-files"
 
 [tool.pixi.feature.build.dependencies]
 uv = "*"
