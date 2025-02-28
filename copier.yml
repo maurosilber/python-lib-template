@@ -75,4 +75,5 @@ _tasks:
     - "git init"
     - "pixi run pre-commit-install"
     - "git add ."
+    - "pixi run lint-staged || git add ."
     - "git commit -m 'Start project with copier'"
